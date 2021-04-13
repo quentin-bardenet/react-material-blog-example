@@ -22,7 +22,15 @@ const PostDetail = ({ createdAt, detail, image, nbLike, title, className }) => {
     <Card className={(classes.root, className)}>
       <CardMedia className={classes.media} image={image} title={title} />
       <CardContent>
-        <Typography variant="caption">{createdAt}</Typography>
+        <Typography variant="caption">
+          {new Intl.DateTimeFormat("fr-FR", {
+            hour: "numeric",
+            minute: "numeric",
+            year: "numeric",
+            month: "numeric",
+            day: "numeric",
+          }).format(new Date(createdAt))}
+        </Typography>
         <Typography variant="h4">{title}</Typography>
         <Typography variant="body2" color="textSecondary" component="p">
           {detail}
