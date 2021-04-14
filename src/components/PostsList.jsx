@@ -1,5 +1,5 @@
 import { Button, makeStyles, Paper, TextField } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PostDetail from "./PostDetail";
 import axios from "axios";
 
@@ -29,6 +29,10 @@ const PostsList = (props) => {
   const [detail, setDetail] = useState("");
   const [image, setImage] = useState("");
   const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    refreshData();
+  }, []);
 
   const refreshData = () => {
     axios.get("https://wcs-blog-api.herokuapp.com/posts").then((response) => {
@@ -88,15 +92,6 @@ const PostsList = (props) => {
           Créer
         </Button>
       </Paper>
-
-      <Button
-        size="small"
-        color="primary"
-        variant="outlined"
-        onClick={refreshData}
-      >
-        Rafraichir
-      </Button>
 
       {posts.map((post) => (
         <PostDetail className={classes.post} key={post._id} {...post} />
